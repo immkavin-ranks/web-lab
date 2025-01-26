@@ -11,10 +11,10 @@ if (isset($_FILES['file'])) {
     $file_path = "{$file_dir}/{$filename}";
     $imageFileType = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
 
-    if (file_exists($file_path)) {
-        $message = 'File already exists.';
-    } elseif (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
         $message = 'Only JPG, JPEG, and PNG files are allowed.';
+    } elseif (file_exists($file_path)) {
+        $message = 'File already exists.';
     } elseif (move_uploaded_file($_FILES['file']['tmp_name'], $file_path)) {
         $message = 'File uploaded successfully';
     } else {
